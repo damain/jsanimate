@@ -24,11 +24,6 @@ export const selector = (name) => {
   }
 };
 
-let animations = []
-
-const render  = ()=>{
-    animations.
-}
 
 export const scale = (el, userOptions) => {
     let options = getDefaults(userOptions)
