@@ -12,30 +12,21 @@ export default class Animate{
   scale(size=1, add=false){
     // this.animationArray.push( { transform: `scale(0)` } )
     add ? this.size += size : this.size = size
-    this.animationArray.push( `scale(${this.size})` )
     return this
   }
   rotate(angle=0, add=false){
     add ? this.angle += angle : this.angle = angle
-    this.animationArray.push(  `rotate(${this.angle}deg)` )
     return this 
   }
   run(options={}){
     let combinedOptions = getDefaults(options)
     console.log(this.animationArray)
-    let matrix = getComputedStyle(this.element).transform
-    // let animation = this.element.animate([...this.animationArray.map(el=>{
-    //   // return {transform: (matrix !== "none" ? matrix : "") +` ${el}`}
-    //   return {transform:` ${el}`}
-    // })], {
-    //   ...combinedOptions
-    // });
-    let animation = this.element.animate([ {transform:` ${this.animationArray.join(" ")}`}
+   
+    let animation = this.element.animate([ {transform:` rotate(${this.angle}deg) scale(${this.size})`}
     ], {
       ...combinedOptions
     });
-    //console.log(animation)
-    //animation.commitStyles()
+
     animation.play()
     this.animationArray = []
     return this

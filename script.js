@@ -3,10 +3,13 @@ import Animate, {animate} from './animations.js'
 customElements.define("my-button", MyButton)
 
 let animateSquare = new Animate('.mysquare')
-           
+let count = 0     
 function doAnimation(){
+    count +=1
+    animateSquare.scale(0).rotate(90).run({duration: 300})
+    animateSquare.element.innerText = count
+    animateSquare.scale(1).rotate(0).run({delay: 1000})
 
-    animateSquare.scale(.5, true).rotate(13, true).run({composite: 'replace', duration: 300}).scale(2).run({delay: 1000})
     console.log( getComputedStyle( animateSquare.element).transform)
 }
 
