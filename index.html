@@ -11,13 +11,21 @@
             width: 50px;
             background-color: red;
         }
+        .container{
+            width: 300px;
+            border: 1px solid black;
+        }
     </style>
 </head>
 <body>
     <div class="app"></div>
     <div id="templates">templates go here</div>
-    
-    <div class="mysquare"></div>
+    <div class="container">
+
+        <div class="mysquare"></div>
+    </div>
+    <button id="reverse">reverse</button>
+    <button id="reset">reset</button>
     <my-button plot="there is a story" onPow="runnow()"></my-button>
     <script src="./script.js" type="module"></script>
     <script src="./animations.js"></script>

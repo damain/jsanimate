@@ -1,20 +1,34 @@
 import MyButton from "./my-button.js";
-import Animate, {animate} from './animations.js'
+import Animate from './animations.js'
 customElements.define("my-button", MyButton)
 
 let animateSquare = new Animate('.mysquare')
 let count = 0     
+let test = ""
+animateSquare.onFinish = ()=>{console.log("done")}
 function doAnimation(){
     count +=1
-    animateSquare.scale(0).rotate(90).run({duration: 300})
-    animateSquare.element.innerText = count
-    animateSquare.scale(1).rotate(0).run({delay: 1000})
+    animateSquare.scale(2).run().rotate(-100).translate({x: "200%", y: "50%", add:true}).fade().run().rotate({angle:100, add:true}).fade(false).run({delay: 1000})
+    // animateSquare.element.innerText = count
+    // animateSquare.scale(1).rotate(0).run({delay: 1000})
 
     console.log( getComputedStyle( animateSquare.element).transform)
 }
 
 animateSquare.element.onclick = ()=> doAnimation()
 
+animateSquare.element.onmouseenter = ()=> animateSquare.rotate(20).run()
+animateSquare.element.onmouseleave = ()=> animateSquare.rotate(0).run()
+
+let reverseButton= document.querySelector("#reverse")
+reverseButton.onclick = ()=>{
+    animateSquare.reverse()
+}
+
+let resetButton= document.querySelector("#reset")
+resetButton.onclick = ()=>{
+    animateSquare.reset()
+}
 
 
 // const logPow = (e) =>{
