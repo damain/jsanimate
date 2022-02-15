@@ -204,7 +204,7 @@ export default class Animate {
    * @param {string} distance - Distance away from the screen
    * @returns
    */
-  set3Dperspective(hasPerspective = false, distance = "none") {
+  set3DPerspective(hasPerspective = false, distance = "none") {
     this.hasPerspective = hasPerspective;
     this.distance = distance;
     return this;

@@ -8,10 +8,10 @@ let test = ""
 animateSquare.onFinish = ()=>{console.log("done")}
 function doAnimation(){
     count +=1
-    animateSquare.translate
-    animateSquare.scale(2).run().rotate(-100).translate({x: "200%", y: "50%", add:true}).fade().run().rotate({angle:100, add:true}).fade(false).run({delay: 1000})
-    animateSquare.transformOrigin("bottom right").run({delay:1000}).rotateZ(".5turn").run({delay:2000, easing: "cubic-bezier(.08,.28,.33,1.5)"}).rotateZ(".6turn").run({delay: 3000})
-    // animateSquare.element.innerText = count
+    animateSquare.rotate(45).translate({ x: 45, y: 60 }).run().scale(3).run({ delay: 1000 });
+    // animateSquare.scale(2).run().rotate(-100).translate({x: "200%", y: "50%", add:true}).fade().run().rotate({angle:100, add:true}).fade(false).run({delay: 1000})
+    // animateSquare.transformOrigin("bottom right").run({delay:1000}).rotateZ(".5turn").run({delay:2000, easing: "cubic-bezier(.08,.28,.33,1.5)"}).rotateZ(".6turn").run({delay: 3000})
+    // // animateSquare.element.innerText = count
     // animateSquare.scale(1).rotate(0).run({delay: 1000})
     // animateSquare.perspective("6cm").transformOrigin("botttom right").rotateZ(".5turn").run()
     // .transformOrigin("bottom left").rotateZ("1turn").run({delay: 500})
