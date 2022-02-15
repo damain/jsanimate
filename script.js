@@ -8,17 +8,19 @@ let test = ""
 animateSquare.onFinish = ()=>{console.log("done")}
 function doAnimation(){
     count +=1
-    animateSquare.scale(2).run().rotate(-100).translate({x: "200%", y: "50%", add:true}).fade().run().rotate({angle:100, add:true}).fade(false).run({delay: 1000})
+    // animateSquare.scale(2).run().rotate(-100).translate({x: "200%", y: "50%", add:true}).fade().run().rotate({angle:100, add:true}).fade(false).run({delay: 1000})
     // animateSquare.element.innerText = count
     // animateSquare.scale(1).rotate(0).run({delay: 1000})
-
+    // animateSquare.perspective("6cm").transformOrigin("botttom right").rotateZ(".5turn").run()
+    // .transformOrigin("bottom left").rotateZ("1turn").run({delay: 500})
+    animateSquare.transformOrigin("bottom right").run().rotateZ(".5turn").run({easing: "cubic-bezier(.08,.28,.33,1.5)"}).rotateZ(".6turn").run({delay: 1000})
     console.log( getComputedStyle( animateSquare.element).transform)
 }
 
 animateSquare.element.onclick = ()=> doAnimation()
 
-animateSquare.element.onmouseenter = ()=> animateSquare.rotate(20).run()
-animateSquare.element.onmouseleave = ()=> animateSquare.rotate(0).run()
+// animateSquare.element.onmouseenter = ()=> animateSquare.rotate(0).perspective("6cm").rotateX(".5turn").run()
+// animateSquare.element.onmouseleave = ()=> animateSquare.rotate(0).rotateX("1turn").run()
 
 let reverseButton= document.querySelector("#reverse")
 reverseButton.onclick = ()=>{

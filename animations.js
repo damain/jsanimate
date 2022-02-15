@@ -2,57 +2,12 @@ export default class Animate {
   constructor(elementToAnimate) {
     this.element = selector(elementToAnimate);
     this.rem = getComputedStyle(document.documentElement).fontSize;
-    this.pageWidth;
-    this.animationArray = [];
-    this.size = { x: 1, y: 1 };
-    this.cords = { x: 0, y: 0 };
-    this.angle = 0;
-    this.lastAnimation = null;
-    this.onFinish = null;
-    this.shouldFade = false;
+    this.setDefaultProperties();
   }
 
   addAnimation() {
     let matrix = getComputedStyle(element).transform;
     this.animationArray.push({ transform: `rotate(${this.angle}deg)` });
-  }
-
-  determineUnit(str) {
-    if (typeof str !== 'string') return null
-    if (str.includes("px")) return "px";
-    if (str.includes("rem")) return "rem";
-    if (str.includes("%")) return "%";
-    if (str.includes("turn")) return "turn";
-    return null;
-  }
-
-  // Adds two units values with the same units.
-  sameUnitAddition(original, change, unit){
-    let result = parseFloat(original.replace(unit, "")) + parseFloat(change.replace(unit,""))
-    return result + unit
-  }
-  differentUnitAddition(original, change, firstUnit, secondUnit){
-    let result = parseFloat(original.split(unit)[0]) + parseFloat(change.split(unit)[0])
-    return result + unit
-  }
-  pxToPercent(val, axis){
-    let computedStyle = getComputedStyle(this.element)
-    let denominatior
-    let numerator= parseFloat(val.replace("px", ""))
-    
-    if(axis="x"){
-      denominator = parseFloat(computedStyle.height.replace("px",""))
-    }else {
-      denominator = parseFloat(computedStyle.width.replace("px",""))
-    }
-
-    return (numerator/denominator)*100
-  }
-
-  fade (val = true){
-    this.shouldFade = val;
-    return this
-
   }
 
   computeChange(original, change) {
@@ -61,9 +16,9 @@ export default class Animate {
     let originalUnit = this.determineUnit(original);
     if (originalUnit === null) return change;
     let changeUnit = this.determineUnit(change);
-    if (originalUnit === changeUnit){
-      console.log("same unit")
-      return this.sameUnitAddition(original, change, originalUnit)
+    if (originalUnit === changeUnit) {
+      console.log("same unit");
+      return this.sameUnitAddition(original, change, originalUnit);
     }
     switch (key) {
       case value:
@@ -72,6 +27,154 @@ export default class Animate {
       default:
         break;
     }
+  }
+
+  determineUnit(str) {
+    if (typeof str !== "string") return null;
+    if (str.includes("px")) return "px";
+    if (str.includes("rem")) return "rem";
+    if (str.includes("%")) return "%";
+    if (str.includes("turn")) return "turn";
+    return null;
+  }
+
+  differentUnitAddition(original, change, firstUnit, secondUnit) {
+    let result = parseFloat(original.split(unit)[0]) + parseFloat(change.split(unit)[0]);
+    return result + unit;
+  }
+
+  fade(val = true) {
+    this.shouldFade = val;
+    return this;
+  }
+
+  /**
+   * @description Creates perspective on animating element
+   * @param {string} perspective -  ;
+   * @returns
+   */
+  perspective(perspective = "none") {
+    this.localPerspective = perspective;
+    return this;
+  }
+
+  pxToPercent(val, axis) {
+    let computedStyle = getComputedStyle(this.element);
+    let denominatior;
+    let numerator = parseFloat(val.replace("px", ""));
+
+    if ((axis = "x")) {
+      denominator = parseFloat(computedStyle.height.replace("px", ""));
+    } else {
+      denominator = parseFloat(computedStyle.width.replace("px", ""));
+    }
+
+    return (numerator / denominator) * 100;
+  }
+
+  /**
+   * @description Plays last animation in reverse
+   * @returns instance of the class
+   */
+  reverse() {
+    if (this.lastAnimation === null) return this;
+    this.lastAnimation.reverse();
+    return this;
+  }
+
+  /**
+   * @description Sets the class properties to the defaults for the class and runs the animation which will return the element to its original state
+   */
+  reset() {
+    this.setDefaultProperties();
+    this.run();
+  }
+
+  rotate({ angle = 0, add = false }) {
+    // to handle cases where the user provides one number as angle
+    if (typeof arguments[0] === "number") {
+      angle = arguments[0];
+    }
+    add ? (this.angle += angle) : (this.angle = angle);
+    return this;
+  }
+
+  /**
+   * @description 3d rotation along the x axis
+   * @param {string} angle
+   * @returns
+   */
+  rotateX(angle = "0deg") {
+    this.rotation.x = angle;
+    return this;
+  }
+
+  /**
+   * @description 3d rotation along the Y axis
+   * @param {string} angle
+   * @returns
+   */
+  rotateY(angle = "0deg") {
+    this.rotation.y = angle;
+    return this;
+  }
+
+  /**
+   * @description 3d rotation along the Z axis
+   * @param {string} angle
+   * @returns
+   */
+  rotateZ(angle = "0deg") {
+    this.rotation.z = angle;
+    return this;
+  }
+
+  /**
+   *
+   * @param {object} options
+   * @returns instance of the class
+   */
+  run(options = {}) {
+    let combinedOptions = getDefaultOptions(options);
+    // console.log(this.animationArray);
+    // console.log(this.element);
+    // TODO: animate removal of perspective
+    this.element.parentElement.style.perspective = this.hasPerspective ? this.distance : "none";
+    let animation = this.element.animate(
+      [
+        {
+          transformOrigin: this.origin,
+          transform: ` 
+          perspective(${this.localPerspective})
+          scale(${this.size.x}, ${this.size.y})
+          translate(${this.cords.x}, ${this.cords.y})
+          rotate(${this.angle}deg) 
+          rotateX(${this.rotation.x})
+          rotateY(${this.rotation.y})
+          rotateZ(${this.rotation.z})
+          `,
+          opacity: this.shouldFade ? 0 : 1,
+        },
+      ],
+      {
+        ...combinedOptions,
+      }
+    );
+    this.lastAnimation = animation;
+    animation.play();
+
+    animation.onfinish = () => {
+      // console.log(getComputedStyle(this.element).transform);
+      if (this.onFinish !== null) this.onFinish();
+    };
+    this.animationArray = [];
+    return this;
+  }
+
+  // Adds two units values with the same units.
+  sameUnitAddition(original, change, unit) {
+    let result = parseFloat(original.replace(unit, "")) + parseFloat(change.replace(unit, ""));
+    return result + unit;
   }
 
   scale({ x = 1, y = 1, add = false }) {
@@ -89,72 +192,57 @@ export default class Animate {
     add ? (this.size = { x: this.size.x + x, y: this.size.y + y }) : (this.size = { x, y });
     return this;
   }
-
-  rotate({ angle = 0, add = false }) {
-    // to handle cases where the user provides one number as angle
-    if (typeof arguments[0] === "number") {
-      angle = arguments[0];
-    }
-    add ? (this.angle += angle) : (this.angle = angle);
+  /**
+   * @description Sets 3d perspective on parent
+   * @param {bool} hasPerspective - turns perspective on and off
+   * @param {string} distance - Distance away from the screen
+   * @returns
+   */
+  set3Dperspective(hasPerspective = false, distance = "none") {
+    this.hasPerspective = hasPerspective;
+    this.distance = distance;
     return this;
+  }
+
+  /**
+   * @description Sets the class properties to the defaults for the class without running the animation
+   */
+  setDefaultProperties() {
+    this.pageWidth;
+    this.animationArray = [];
+    this.size = { x: 1, y: 1 };
+    this.cords = { x: 0, y: 0 };
+    this.angle = 0;
+    this.lastAnimation = null;
+    this.onFinish = null;
+    this.shouldFade = false;
+    this.distance = "1px";
+    this.hasPerspective = false;
+    this.localPerspective = "none";
+    this.rotation = { x: "0deg", y: "0deg", z: "0deg" };
+    this.origin = "center";
   }
 
   translate({ x, y, add = false }) {
     if (typeof x === "number") x = `${x}px`;
     if (typeof y === "number") y = `${y}px`;
 
-    add ? (this.cords = { x: this.computeChange(this.cords.x , x), y: this.computeChange( this.cords.y , y) }) : (this.cords = { x, y });
+    add ? (this.cords = { x: this.computeChange(this.cords.x, x), y: this.computeChange(this.cords.y, y) }) : (this.cords = { x, y });
     return this;
   }
 
-  reverse() {
-    if (this.lastAnimation === null) return this;
-    this.lastAnimation.reverse();
+  /**
+   * @description - Sets the origin of the transform
+   * @param {string} origin - the origin of the transform , center, top, left, bottom, length e.g. 10px
+   * @returns
+   */
+  transformOrigin(origin = "center") {
+    this.origin = origin;
     return this;
-  }
-
-
-  run(options = {}) {
-    let combinedOptions = getDefaults(options);
-    // console.log(this.animationArray);
-    // console.log(this.element);
-    let animation = this.element.animate(
-      [
-        {
-          
-          transform: ` 
-          
-          scale(${this.size.x}, ${this.size.y})
-          translate(${this.cords.x}, ${this.cords.y})
-          rotate(${this.angle}deg) 
-          `,
-          opacity: this.shouldFade ? 0 : 1
-        },
-      ],
-      {
-        ...combinedOptions,
-      }
-    );
-    this.lastAnimation = animation;
-    animation.play();
-
-    animation.onfinish = () => {
-      // console.log(getComputedStyle(this.element).transform);
-      if (this.onFinish !== null) this.onFinish();
-    };
-    this.animationArray = [];
-    return this;
-  }
-  reset() {
-    this.size = { x: 1, y: 1 };
-    this.cords = { x: 0, y: 0 };
-    this.angle = 0;
-    this.run();
   }
 }
 
 // -----------------------END OF CLASS----------------------
-
 
 //   --- Utility functions ---
 
@@ -163,7 +251,7 @@ export default class Animate {
  * @param {*} options
  * @returns defaults for the Animation options
  */
-const getDefaults = (options) => {
+const getDefaultOptions = (options) => {
   const {
     composite = "replace",
     delay = 0,
