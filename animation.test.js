@@ -60,23 +60,3 @@ test('can determine turn',()=>{
     expect(result).toBe("turn")
 })
 
-
-// testing animation methods
-test('can rotate',()=>{
-    let elToAnimate = new Animate('.myClass')
-    elToAnimate.rotate(30).run()
-    elToAnimate.onFinish = ()=>{
-        result = getComputedStyle(elToAnimate.element).transform
-        expect(result).toBe('matrix(0.866025, 0.5, -0.5, 0.866025, 0, 0)')
-    }
-    
-})
-test('can reset',()=>{
-    let elToAnimate = new Animate('.myClass')
-    elToAnimate.reset()
-    elToAnimate.onFinish = ()=>{
-        result = getComputedStyle(elToAnimate.element).transform
-        expect(result).toBe('matrix(1, 0, 0, 1, 0, 0)')
-    }
-    
-})
