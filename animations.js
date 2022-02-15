@@ -1,3 +1,6 @@
+/**
+ * @desc  Animation library that allows chaining animation descriptions
+ */
 export default class Animate {
   constructor(elementToAnimate) {
     this.element = selector(elementToAnimate);
@@ -152,6 +155,9 @@ export default class Animate {
           rotateX(${this.rotation.x})
           rotateY(${this.rotation.y})
           rotateZ(${this.rotation.z})
+          translateX(${this.cords3D.x})
+          translateY(${this.cords3D.y})
+          translateZ(${this.cords3D.z})
           `,
           opacity: this.shouldFade ? 0 : 1,
         },
@@ -212,6 +218,7 @@ export default class Animate {
     this.animationArray = [];
     this.size = { x: 1, y: 1 };
     this.cords = { x: 0, y: 0 };
+    this.cords3D = { x: 0, y: 0, z: 0 };
     this.angle = 0;
     this.lastAnimation = null;
     this.onFinish = null;
@@ -223,11 +230,51 @@ export default class Animate {
     this.origin = "center";
   }
 
+  /**
+   * @description Moves the element in 2d space along the x and y axis
+   * @param {object} param0 As number or object. A number will cause the element to be moved
+   * in the x and y direction in the same amount of px. An object allows you to pass the x and
+   *  y cords along with add as a boolean which determines if the new figure should add to the
+   *  current translate. 
+   * @   E.g. translate(45)
+   * E.g. translate({x:"34px", y:"100px", add:true})
+   * @returns instance of the class
+   */
   translate({ x, y, add = false }) {
     if (typeof x === "number") x = `${x}px`;
     if (typeof y === "number") y = `${y}px`;
 
     add ? (this.cords = { x: this.computeChange(this.cords.x, x), y: this.computeChange(this.cords.y, y) }) : (this.cords = { x, y });
+    return this;
+  }
+
+  /**
+   * @description 3d rotation along the x axis
+   * @param {string} angle can be in px "45px", deg "90deg", turn ".5turn"
+   * @returns
+   */
+  translateX(angle = "0deg") {
+    this.cords3D.x = angle;
+    return this;
+  }
+
+  /**
+   * @description 3d rotation along the Y axis
+   * @param {string} angle can be in px "45px", deg "90deg", turn ".5turn"
+   * @returns
+   */
+  translateY(angle = "0deg") {
+    this.cords3D.y = angle;
+    return this;
+  }
+
+  /**
+   * @description 3d rotation along the Z axis
+   * @param {string} angle can be in px "45px", deg "90deg", turn ".5turn"
+   * @returns
+   */
+  translateZ(angle = "0deg") {
+    this.cords3D.z = angle;
     return this;
   }
 
