@@ -1,8 +1,8 @@
 {
   "name": "animation-lib",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "javascript animation Library",
-  "main": "animations.js",
+    "main": "animations.js",
   "scripts": {
     "test": "jest --coverage"
   },
