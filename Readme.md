@@ -22,7 +22,7 @@ Given the following html
 In your Javascript
 
 ```js
-    import Animate from "jsanimate"
+    import Animate from "@damain/jsanimate"
 
     let elToAnimate = new Animate("#animateMe")
 
