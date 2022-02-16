@@ -1,0 +1,36 @@
+* {
+  font-family: "Maven Pro", sans-serif;
+}
+
+body {
+  position: relative;
+}
+
+.square {
+  width: 150px;
+  height: 150px;
+  background-color: coral;
+  padding: 10px;
+  color: white;
+}
+
+aside {
+  position: absolute;
+  top: 0px;
+  background-color: white;
+  padding: 10px;
+  left: -300px;
+}
+
+button {
+  background-color: dodgerblue;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  margin: 5px;
+}
+
+.buttons {
+  margin-top: 20px;
+}

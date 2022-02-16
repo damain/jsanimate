@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import Animate, {selector} from './animations.js'
+import Animate, {selector} from './jsanimate.js'
 // import {JSDOM} from 'jsdom'
 
 document.body.innerHTML=/*html*/ `

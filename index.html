@@ -1,49 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        .mysquare{
-            height: 50px;
-            width: 50px;
-            background-color: red;
-        }
-        .container{
-            width: 300px;
-            border: 1px solid black;
-        }
-        .inner{
-            width: 30px;
-            height: 30px;
-            background-color: purple;
-        }
-    </style>
-</head>
-<body>
-    <div class="app"></div>
-    <div id="templates">templates go here</div>
-    <div class="container">
-
-        <div class="mysquare">
-            <div class="inner"></div>
-        </div>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>replit</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Maven+Pro&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <h2>Animation Demo </h2>
+    <div class="square">I am a square</div>
+    <div class="buttons">
+      <button id="translate">translate </button>
+      <button id="rotate">rotate</button>
+      <button id="fade">fade</button>
+      <button id="open">open menu</button>
+      <button id="reset">reset square</button>
+      <button id="reverse">reverse</button>
+      <button id="complex">complex animation</button>
     </div>
-    <button id="reverse">reverse</button>
-    <button id="reset">reset</button>
-    <my-button plot="there is a story" onPow="runnow()"></my-button>
-    <script src="./script.js" type="module"></script>
-    <script src="./animations.js"></script>
-    <script>
-        function runnow (){
-            console.log("running")
-        }
-    </script>
-
-<div onclick="doAnimation()">build</div>
-
-    
-</body>
+    <aside>
+      <h3>Menu</h3>
+      <p>Some sample content</p>
+    </aside>
+    <script src="script.js" type="module"></script>
+    <script src="./jsanimate.js"></script>
+  </body>
 </html>

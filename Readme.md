@@ -1,10 +1,15 @@
 # Project Aim
 
-- To create a chainable animation library for programatic animation in javascript
+- To create a chainable animation library for programmatic animation in javascript
 - Work inside of other javascript frameworks like React
 - Allow triggering of animations without using css classes
   <br/>
   <br/>
+
+## Demo
+See demo on [https://replit.com/@damain1/jsanimate-demo](https://replit.com/@damain1/jsanimate-demo)
+
+<br />
 
 # Basic Usage
 
@@ -37,9 +42,10 @@ You need to call the `run()` method at the end in order for the animation to exe
 
 Here are the available methods
 
-- **fade**: fades element in and out, defaults to false
+- **fade**: fades element in and out using opacity, defaults to true
   ```js
-  elToAnimate.fade(true);
+  elToAnimate.fade();
+  elToAnimate.fade(false); // removes the fade animation
   ```
 - **perspective**: sets 3d perspective directly on element
   ```js
@@ -82,7 +88,7 @@ Here are the available methods
 - **translate**: moves element alon the x and y axis
 
   ```js
-  elToAnimate.translate(3);
+  elToAnimate.translate({x:3});
   elToAnimate.translate({ x: 3, y: 3, add: true });
 
   // 3d versions
@@ -97,7 +103,6 @@ Here are the available methods
   elToAnimate.transformOrigin("top right");
   ```
  
-
 
   <br/>
   <br/>
@@ -118,7 +123,7 @@ elToAnimate.rotate(45).translate({ x: 45, y: 60 }).run().scale(3).run({ delay: 1
 
 ## Lets break this down
 
-This code does **two animations**. The first animation will rotate 45 degrees while moving 45px on the➡️ x axis and 60px on the ⬆️y axis. The second animation scales the element 3 times bigger after 1 second. Therefore the run element signals the end of the animation.
+This code does **two animations**. The first animation will rotate 45 degrees while moving 45px on the➡️ x axis and 60px on the ⬇️y axis. The second animation scales the element 3 times bigger after 1 second. Therefore the run element signals the end of the animation.
 
 In the run method, you can specify [animation keyframes options](https://developer.mozilla.org/en-US/docs/Web/API/KeyframeEffect/KeyframeEffect) as an object. In the code above we specified the delay in milliseconds `...run({delay:1000})`
 
@@ -146,4 +151,9 @@ In the run method, you can specify [animation keyframes options](https://develop
 
 This library makes use of [the Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API) to do CSS transformations on elements.
 
-It works by using methods to set the end state of an animation, when run is called all the animations are executed as one animation. Each method returns an instance of the class which allows all the methods to be chained similar to what you can do with JQuery or the way basic javascript array methods work.
+It works by using methods to set the end state of an animation, when run is called all the state changes are executed as one animation. Each method returns an instance of the class which allows all the methods to be chained similar to what you can do with JQuery or the way basic javascript array methods work.
+
+# Roadmap
+
+- Add skew functions
+- Create helper methods for simple animations e.g. fadeLeft, fadeUp, etc.

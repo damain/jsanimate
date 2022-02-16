@@ -3,14 +3,13 @@
  */
 export default class Animate {
   constructor(elementToAnimate) {
-    this.element = selector(elementToAnimate);
+    try {
+      this.element = selector(elementToAnimate);
+    } catch (error) {
+      console.log(error.message)
+    }
     this.rem = getComputedStyle(document.documentElement).fontSize;
     this.setDefaultProperties();
-  }
-
-  addAnimation() {
-    let matrix = getComputedStyle(element).transform;
-    this.animationArray.push({ transform: `rotate(${this.angle}deg)` });
   }
 
   computeChange(original, change) {
@@ -32,6 +31,11 @@ export default class Animate {
     }
   }
 
+  /**
+   * @description Internal method to determin what unit a measurement is in
+   * @param {*} str
+   * @returns string name of measurement e.g. px
+   */
   determineUnit(str) {
     if (typeof str !== "string") return null;
     if (str.includes("px")) return "px";
@@ -42,10 +46,15 @@ export default class Animate {
   }
 
   differentUnitAddition(original, change, firstUnit, secondUnit) {
+    // TODO: complete this functionality
     let result = parseFloat(original.split(unit)[0]) + parseFloat(change.split(unit)[0]);
     return result + unit;
   }
-
+  /**
+   * @description Accepts a boolean to decide if a element should fade. Defaults to true
+   * @param {bool} val
+   * @returns instance of the class
+   */
   fade(val = true) {
     this.shouldFade = val;
     return this;
@@ -54,13 +63,19 @@ export default class Animate {
   /**
    * @description Creates perspective on animating element
    * @param {string} perspective -  ;
-   * @returns
+   * @returns instance of the class
    */
   perspective(perspective = "none") {
     this.localPerspective = perspective;
     return this;
   }
 
+  /**
+   * @description Converts pixels to a percentage of the element size
+   * @param {*} val 
+   * @param {*} axis 
+   * @returns percentage as number
+   */
   pxToPercent(val, axis) {
     let computedStyle = getComputedStyle(this.element);
     let denominatior;
@@ -93,6 +108,11 @@ export default class Animate {
     this.run();
   }
 
+  /**
+   * @description
+   * @param {*} param0
+   * @returns instance of the class
+   */
   rotate({ angle = 0, add = false }) {
     // to handle cases where the user provides one number as angle
     if (typeof arguments[0] === "number") {
@@ -105,7 +125,7 @@ export default class Animate {
   /**
    * @description 3d rotation along the x axis
    * @param {string} angle
-   * @returns
+   * @returns instance of the class
    */
   rotateX(angle = "0deg") {
     this.rotation.x = angle;
@@ -115,7 +135,7 @@ export default class Animate {
   /**
    * @description 3d rotation along the Y axis
    * @param {string} angle
-   * @returns
+   * @returns instance of the class
    */
   rotateY(angle = "0deg") {
     this.rotation.y = angle;
@@ -125,7 +145,7 @@ export default class Animate {
   /**
    * @description 3d rotation along the Z axis
    * @param {string} angle
-   * @returns
+   * @returns instance of the class
    */
   rotateZ(angle = "0deg") {
     this.rotation.z = angle;
@@ -133,8 +153,8 @@ export default class Animate {
   }
 
   /**
-   *
-   * @param {object} options
+   * @description Executes the animation
+   * @param {object} options object with keyframeEffect options 
    * @returns instance of the class
    */
   run(options = {}) {
@@ -177,7 +197,13 @@ export default class Animate {
     return this;
   }
 
-  // Adds two units values with the same units.
+  /**
+   * 
+   * @param {string} original 
+   * @param {string} change 
+   * @param {string} unit 
+   * @returns sum of the two values as a string inclusive of the unit e.g. "20px"
+   */
   sameUnitAddition(original, change, unit) {
     let result = parseFloat(original.replace(unit, "")) + parseFloat(change.replace(unit, ""));
     return result + unit;
@@ -230,12 +256,14 @@ export default class Animate {
     this.origin = "center";
   }
 
+  // TODO: implement skew methods 
+
   /**
    * @description Moves the element in 2d space along the x and y axis
    * @param {object} param0 As number or object. A number will cause the element to be moved
    * in the x and y direction in the same amount of px. An object allows you to pass the x and
    *  y cords along with add as a boolean which determines if the new figure should add to the
-   *  current translate. 
+   *  current translate.
    * @   E.g. translate(45)
    * E.g. translate({x:"34px", y:"100px", add:true})
    * @returns instance of the class

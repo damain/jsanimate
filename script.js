@@ -1,57 +1,56 @@
-import MyButton from "./my-button.js";
-import Animate from './animations.js'
-customElements.define("my-button", MyButton)
+import Animate from './jsanimate.js'
 
-let animateSquare = new Animate('.mysquare')
-let count = 0     
-let test = ""
-animateSquare.onFinish = ()=>{console.log("done")}
-function doAnimation(){
-    count +=1
-    animateSquare.rotate(45).translate({ x: 45, y: 60 }).run().scale(3).run({ delay: 1000 });
-    // animateSquare.scale(2).run().rotate(-100).translate({x: "200%", y: "50%", add:true}).fade().run().rotate({angle:100, add:true}).fade(false).run({delay: 1000})
-    // animateSquare.transformOrigin("bottom right").run({delay:1000}).rotateZ(".5turn").run({delay:2000, easing: "cubic-bezier(.08,.28,.33,1.5)"}).rotateZ(".6turn").run({delay: 3000})
-    // // animateSquare.element.innerText = count
-    // animateSquare.scale(1).rotate(0).run({delay: 1000})
-    // animateSquare.perspective("6cm").transformOrigin("botttom right").rotateZ(".5turn").run()
-    // .transformOrigin("bottom left").rotateZ("1turn").run({delay: 500})
-    // animateSquare.transformOrigin("bottom right").run().rotateZ(".5turn").run({easing: "cubic-bezier(.08,.28,.33,1.5)"}).rotateZ(".6turn").run({delay: 1000})
-    console.log( getComputedStyle( animateSquare.element).transform)
+// Variable to hold menu state
+let menuOpen = false
+
+// Get elements to animate
+let square = new Animate(".square")
+let aside = new Animate("aside")
+
+// Get buttons
+let button1 = document.querySelector("#translate")
+let button2 = document.querySelector("#rotate")
+let button3 = document.querySelector("#fade")
+let button4 = document.querySelector("#open")
+let button5 = document.querySelector("#reset")
+let button6 = document.querySelector("#reverse")
+let button7 = document.querySelector("#complex")
+
+square.element.onclick = ()=>{
+  square.rotate({angle: 45, add:true}).run()
 }
 
-animateSquare.element.onclick = ()=> doAnimation()
+button1.onclick = ()=>square.translate({x:45, y:300}).run()
+button2.onclick = ()=>square.rotate(360).run()
+button3.onclick = ()=>square.fade().run()
 
-// animateSquare.element.onmouseenter = ()=> animateSquare.rotate(0).perspective("6cm").rotateX(".5turn").run()
-// animateSquare.element.onmouseleave = ()=> animateSquare.rotate(0).rotateX("1turn").run()
-
-let reverseButton= document.querySelector("#reverse")
-reverseButton.onclick = ()=>{
-    animateSquare.reverse()
+button4.onclick = ()=>{
+  if (!menuOpen){
+    // slide to the right if closed
+    aside.perspective("6cm")
+      .transformOrigin("center left").rotateY("45deg")
+      .translate({x:"290px", y: "0px"}).run({duration: 100})
+      .rotateY("0deg").run({duration: 600})
+    button4.innerText  = "close menu"
+  }else{
+    //slide to the left if open
+    aside.rotateY("45deg").run({duration: 300})
+    button4.innerText  = "open menu"
+  }
+  //toggle menu state
+  menuOpen = !menuOpen
 }
 
-let resetButton= document.querySelector("#reset")
-resetButton.onclick = ()=>{
-    animateSquare.reset()
+button5.onclick = ()=>square.reset()
+button6.onclick = ()=>square.reverse()
+
+// Animation when complex button clicked
+button7.onclick = ()=>{
+  square.perspective("6cm").translate({x:200, y:0}).run()
+    .rotateY("1turn").run({endDelay: 100})
+    .transformOrigin("top right").run()
+    .rotate(-30).run({delay: 1000, easing: "cubic-bezier(.34,-0.06,.1,1.6)"})
+    .translate({x:200, y: 300}).fade().run({delay: 1500})
 }
 
 
-// const logPow = (e) =>{
-//     console.log("ffromo pow")
-// }
-
-// // spin('.mysquare', 600, 1)
-
-// let mySquare = document.querySelector('.mysquare')
-// mySquare.onclick= ()=>{
-//     animate('.mysquare', [{name:'scale', scale: 1.5}], {fill:"forwards", iterations:1 })
-//    // let test = spin('.mysquare',{fill:"none", iterations: 1, composite:"add"})
-//         // shift('.mysquare', {x:"100", y:"-0", iterations:1, fill: "forwards"})
-//         // setTimeout(()=>shift('.mysquare', {x:"100", y:"200", iterations:1, fill: "forwards"}), 1000)
-//         // spin('.mysquare',{fill:"forwards", iterations: 1})
-//     // scale('.mysquare',{fill:"forwards", iterations: 1, scale:5, composite:"replace"})
-// }
-
-
-
-// mySquare.addEventListener("mouseover", ()=>scale('.mysquare',{fill:"forwards", iterations: 1, scale:1.5, composite:"replace"}) )
-// mySquare.addEventListener("mouseout", ()=>scale('.mysquare',{fill:"forwards", iterations: 1, scale:1, composite:"replace"}) )
