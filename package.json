@@ -1,13 +1,14 @@
 {
-  "name": "animation-lib",
+  "name": "jsanimate",
   "version": "0.1.0",
-  "description": "javascript animation Library",
-    "main": "animations.js",
+  "description": "Programatic Javascript Animation Library",
+    "main": "jsanimate.js",
   "scripts": {
     "test": "jest --coverage"
   },
   "author": "Damain Joseph",
   "license": "ISC",
+  "homepage": "https://github.com/damain/jsanimate",
   "devDependencies": {
     "@babel/preset-env": "^7.16.8",
     "cross-env": "^7.0.3",
