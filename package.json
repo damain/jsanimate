@@ -1,5 +1,5 @@
 {
-  "name": "jsanimate",
+  "name": "@damain/jsanimate",
   "version": "0.1.0",
   "description": "Programatic Javascript Animation Library",
     "main": "jsanimate.js",
