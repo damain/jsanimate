@@ -19,7 +19,7 @@ export default class Animate {
     if (originalUnit === null) return change;
     let changeUnit = this.determineUnit(change);
     if (originalUnit === changeUnit) {
-      console.log("same unit");
+      // console.log("same unit");
       return this.sameUnitAddition(original, change, originalUnit);
     }
     switch (key) {
@@ -78,7 +78,7 @@ export default class Animate {
    */
   pxToPercent(val, axis) {
     let computedStyle = getComputedStyle(this.element);
-    let denominatior;
+    let denominator;
     let numerator = parseFloat(val.replace("px", ""));
 
     if ((axis = "x")) {
@@ -102,10 +102,12 @@ export default class Animate {
 
   /**
    * @description Sets the class properties to the defaults for the class and runs the animation which will return the element to its original state
+   * @returns instance of the class
    */
   reset() {
     this.setDefaultProperties();
     this.run();
+    return this;
   }
 
   /**
@@ -381,7 +383,7 @@ export const selector = (name) => {
       }
       throw new Error("The string provided was not found");
     case "object":
-      console.log("its an object");
+      // console.log("its an object");
       if (name instanceof HTMLElement) {
         return name;
       }

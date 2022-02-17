@@ -11,6 +11,16 @@ See demo on [https://replit.com/@damain1/jsanimate-demo](https://replit.com/@dam
 
 <br />
 
+# Installation
+Download minified version below and add as a script tag
+
+[https://github.com/damain/jsanimate/blob/main/jsanimate.min.js](https://github.com/damain/jsanimate/blob/main/jsanimate.min.js)
+
+or install via npm
+```bash
+npm install @damain/jsanimate
+```
+
 # Basic Usage
 
 Given the following html
@@ -22,9 +32,9 @@ Given the following html
 In your Javascript
 
 ```js
-    import Animate from "@damain/jsanimate"
+    import Jsanimate from "@damain/jsanimate"
 
-    let elToAnimate = new Animate("#animateMe")
+    let elToAnimate = new Jsanimate("#animateMe")
 
     elToAnimate.rotate(45).run()
 
