@@ -16,10 +16,14 @@ Download minified version below and add as a script tag
 
 [https://github.com/damain/jsanimate/blob/main/jsanimate.min.js](https://github.com/damain/jsanimate/blob/main/jsanimate.min.js)
 
+<br/>
+
 or install via npm
 ```bash
 npm install @damain/jsanimate
 ```
+
+<br/>
 
 # Basic Usage
 
