@@ -7,18 +7,21 @@
   <br/>
 
 ## Demo
+
 See demo on [https://replit.com/@damain1/jsanimate-demo](https://replit.com/@damain1/jsanimate-demo)
 
 <br />
 
 # Installation
+
 Download minified version below and add as a script tag
 
-[https://github.com/damain/jsanimate/blob/main/jsanimate.min.js](https://github.com/damain/jsanimate/blob/main/jsanimate.min.js)
+[https://github.com/damain/jsanimate/blob/main/build/jsanimate.min.js](https://github.com/damain/jsanimate/blob/main/build/jsanimate.min.js)
 
 <br/>
 
 or install via npm
+
 ```bash
 npm install @damain/jsanimate
 ```
@@ -36,12 +39,11 @@ Given the following html
 In your Javascript
 
 ```js
-    import Jsanimate from "@damain/jsanimate"
+import Jsanimate from "@damain/jsanimate";
 
-    let elToAnimate = new Jsanimate("#animateMe")
+let elToAnimate = new Jsanimate("#animateMe");
 
-    elToAnimate.rotate(45).run()
-
+elToAnimate.rotate(45).run();
 ```
 
 **Please Note** ⚠️
@@ -64,13 +66,14 @@ Here are the available methods
 - **perspective**: sets 3d perspective directly on element
   ```js
   elToAnimate.perspective("200px");
-  elToAnimate.perspective("nome"); // removes the perspective
+  elToAnimate.perspective("none"); // removes the perspective
   ```
 - **reset**: returns element to starting state
   ```js
   elToAnimate.reset();
   ```
 - **reverse**: plays last animation in reverse
+
   ```js
   elToAnimate.reverse();
   ```
@@ -97,12 +100,12 @@ Here are the available methods
 - **set3DPerspective**: activates 3d perspective on the parent of the element to animate
   rotate and sets the perspective distance
   ```js
-  elToAnimate.set3DPerspective(true, "6cm")
+  elToAnimate.set3DPerspective(true, "6cm");
   ```
 - **translate**: moves element alon the x and y axis
 
   ```js
-  elToAnimate.translate({x:3});
+  elToAnimate.translate({ x: 3 });
   elToAnimate.translate({ x: 3, y: 3, add: true });
 
   // 3d versions
@@ -110,20 +113,20 @@ Here are the available methods
   elToAnimate.translateY(".5turn");
   elToAnimate.translateZ("45deg");
   ```
-- **transformOrigin**: sets the origin (pivot point) of the animation 
+
+- **transformOrigin**: sets the origin (pivot point) of the animation
 
   ```js
   elToAnimate.transformOrigin("center");
   elToAnimate.transformOrigin("top right");
   ```
- 
 
   <br/>
   <br/>
-
 
 # Chaining methods together
-Methods can be chained together to compose more complex animations. 
+
+Methods can be chained together to compose more complex animations.
 
 ```js
 elToAnimate.rotate(45).translate({ x: 45, y: 45 }).run();
@@ -132,7 +135,12 @@ elToAnimate.rotate(45).translate({ x: 45, y: 45 }).run();
 You can continue chaining after the run in order to specify another animation.
 
 ```js
-elToAnimate.rotate(45).translate({ x: 45, y: 60 }).run().scale(3).run({ delay: 1000 });
+elToAnimate
+	.rotate(45)
+	.translate({ x: 45, y: 60 })
+	.run()
+	.scale(3)
+	.run({ delay: 1000 });
 ```
 
 ## Lets break this down
