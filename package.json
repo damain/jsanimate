@@ -2,9 +2,11 @@
   "name": "@damain/jsanimate",
   "version": "0.1.2",
   "description": "Programatic Javascript Animation Library",
-    "main": "jsanimate.js",
+  "main": "jsanimate.js",
   "scripts": {
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "minify": "uglifyjs --compress --mangle --output build/jsanimate.min.js -- build/jsanimate.js",
+    "build": "tsc --declaration && npm run minify"
   },
   "author": "Damain Joseph",
   "license": "ISC",
@@ -14,5 +16,8 @@
     "cross-env": "^7.0.3",
     "jest": "^27.4.7",
     "jsdom": "^19.0.0"
+  },
+  "dependencies": {
+    "uglify-js": "^3.17.4"
   }
 }
