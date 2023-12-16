@@ -1,4 +1,4 @@
-import Animate from './jsanimate.js'
+import Animate from '../build/jsanimate.js'
 
 // Variable to hold menu state
 let menuOpen = false
